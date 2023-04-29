@@ -36,26 +36,26 @@ public class Tests {
         driver.quit();
     }
 
-//    @Test
-//    public void Ex2(){
-//        assertElementHasText(
-//                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
-//                "Search Wikipedia",
-//                "We see unexpected text!"
-//        );
-//
-//        waitForElementAndClick(
-//                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
-//                "Cannot find field 'Search Wikipedia'",
-//                5
-//        );
-//
-//        assertElementHasText(
-//                By.xpath("//*[contains(@text, 'Search…')]"),
-//                "Search…",
-//                "We see unexpected text!"
-//        );
-//    }
+    @Test
+    public void Ex2(){
+        assertElementHasText(
+                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                "Search Wikipedia",
+                "We see unexpected text!"
+        );
+
+        waitForElementAndClick(
+                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                "Cannot find field 'Search Wikipedia'",
+                5
+        );
+
+        assertElementHasText(
+                By.xpath("//*[contains(@text, 'Search…')]"),
+                "Search…",
+                "We see unexpected text!"
+        );
+    }
 
 
     @Test
