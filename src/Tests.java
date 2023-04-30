@@ -111,6 +111,184 @@ public class Tests {
     }
 
     @Test
+    public void Ex5(){
+        String search_field = "//*[contains(@text, 'Search Wikipedia')]";
+        String search_input = "//*[contains(@text, 'Search…')]";
+        String title_of_first_article = "Java (programming language)";
+        String title_of_second_article = "JavaScript";
+        String title_of_article_locator = "org.wikipedia:id/view_page_title_text";
+        String more_options_button = "//android.widget.ImageView[@content-desc='More options']";
+        String add_to_list_button = "//*[@text='Add to reading list']";
+        String onboarding_button = "org.wikipedia:id/onboarding_button";
+        String name_of_list_input = "org.wikipedia:id/text_input";
+        String ok_button_of_list_input = "//*[@text='OK']";
+        String x_button_of_article = "//android.widget.ImageButton[@content-desc='Navigate up']";
+        String my_list_button = "//android.widget.FrameLayout[@content-desc='My lists']";
+        String name_of_test_list = "Learning Programming";
+
+        //Добавление первой статьи
+        waitForElementAndClick(
+                By.xpath(search_field),
+                "Cannot find 'Search Wikipedia' input",
+                5
+        );
+
+        waitForElementAndSendKeys(
+                By.xpath(search_input),
+                "Java",
+                "Cannot find 'Java' in search",
+                5
+        );
+
+        waitForElementAndClick(
+                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='" + title_of_first_article + "']"),
+                "Cannot find 'Search Wikipedia' result",
+                15
+        );
+
+        assertElementHasText(
+                By.id(title_of_article_locator),
+                title_of_first_article,
+                "Cannot find title of first article'"
+        );
+
+        waitForElementAndClick(
+                By.xpath(more_options_button),
+                "Cannot find button to open article options",
+                5
+        );
+
+        waitForElementAndClick(
+                By.xpath(add_to_list_button),
+                "Cannot find option to add article to reading list",
+                5
+        );
+
+        waitForElementAndClick(
+                By.id(onboarding_button),
+                "Cannot find 'Got It' tip overlay",
+                5
+        );
+
+        waitForElementAndClear(
+                By.id(name_of_list_input),
+                "Cannot find input to set name of articles folder",
+                5
+        );
+
+        waitForElementAndSendKeys(
+                By.id(name_of_list_input),
+                name_of_test_list,
+                "Cannot put text into articles folder input",
+                5
+        );
+
+        waitForElementAndClick(
+                By.xpath(ok_button_of_list_input),
+                "Cannot press 'OK' button",
+                5
+        );
+
+        waitForElementAndClick(
+                By.xpath(x_button_of_article),
+                "Cannot close article, cannot find 'X' link",
+                5
+        );
+
+        // Добавление второй статьи
+        waitForElementAndClick(
+                By.xpath(search_field),
+                "Cannot find 'Search Wikipedia' input",
+                5
+        );
+
+        waitForElementAndSendKeys(
+                By.xpath(search_input),
+                "Java",
+                "Cannot find 'Java' in search",
+                5
+        );
+
+        waitForElementAndClick(
+                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='" + title_of_second_article + "']"),
+                "Cannot find 'Search Wikipedia' result",
+                15
+        );
+
+        assertElementHasText(
+                By.id(title_of_article_locator),
+                title_of_second_article,
+                "Cannot find title of second article"
+        );
+
+        waitForElementAndClick(
+                By.xpath(more_options_button),
+                "Cannot find button to open article options",
+                5
+        );
+
+        waitForElementAndClick(
+                By.xpath(add_to_list_button),
+                "Cannot find option to add article to reading list",
+                5
+        );
+
+        waitForElementAndClick(
+                By.xpath("//*[@text='" + name_of_test_list + "']"),
+                "Cannot find 'Got It' tip overlay",
+                5
+        );
+
+        waitForElementAndClick(
+                By.xpath(x_button_of_article),
+                "Cannot close article, cannot find 'X' link",
+                5
+        );
+
+        // Проверка списка
+        waitForElementAndClick(
+                By.xpath(my_list_button),
+                "Cannot find navigation button to My List",
+                15
+        );
+
+        assertElementHasText(
+                By.xpath("//*[@text='" + name_of_test_list + "']"),
+                name_of_test_list,
+                "Cannot see name of created folder"
+        );
+
+        waitForElementAndClick(
+                By.xpath("//*[@text='" + name_of_test_list + "']"),
+                "Cannot find created folder",
+                5
+        );
+
+        swipeElementToLeft(
+                By.xpath("//*[@text='" + title_of_first_article + "']"),
+                "Cannot find first saved article"
+        );
+
+        waitForElementNotPresent(
+                By.xpath("//*[@text='" + title_of_first_article + "']"),
+                "Cannot delete first saved article",
+                        15
+        );
+
+        waitForElementPresent(
+                By.xpath("//*[@text='" + title_of_second_article + "']"),
+                "Cannot find second saved article",
+                15
+        );
+
+        assertElementHasText(
+                By.xpath("//*[@text='" + title_of_second_article + "']"),
+                title_of_second_article,
+                "Cannot find title of second article"
+        );
+    }
+
+    @Test
     public void firstTest()
     {
         waitForElementAndClick(
