@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29378336-1d20-4aef-a2dd-d14ca5bcf9cd" name="Changes" comment="commit">
+    <list default="true" id="29378336-1d20-4aef-a2dd-d14ca5bcf9cd" name="Changes" comment="ex3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Tests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tests.java" afterDir="false" />
     </list>
@@ -46,52 +46,52 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.Tests.Ex3">
-    <configuration name="Tests.Ex2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.Tests.testCheckSearchArticleInBackground">
+    <configuration name="Tests.saveFirstArticleToMyList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaAppiumAutomation" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="Tests" />
-      <option name="METHOD_NAME" value="Ex2" />
+      <option name="METHOD_NAME" value="saveFirstArticleToMyList" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tests.Ex3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Tests.testAmountOfEmptySearch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaAppiumAutomation" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="Tests" />
-      <option name="METHOD_NAME" value="Ex3" />
+      <option name="METHOD_NAME" value="testAmountOfEmptySearch" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tests.androidSimpleTest1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Tests.testAmountOfNotEmptySearch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaAppiumAutomation" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="Tests" />
-      <option name="METHOD_NAME" value="androidSimpleTest1" />
+      <option name="METHOD_NAME" value="testAmountOfNotEmptySearch" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tests.testCancelSearch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Tests.testChangeScreenOrientationOnSearchResults" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaAppiumAutomation" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="Tests" />
-      <option name="METHOD_NAME" value="testCancelSearch" />
+      <option name="METHOD_NAME" value="testChangeScreenOrientationOnSearchResults" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tests.testCompareArticleTitle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Tests.testCheckSearchArticleInBackground" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaAppiumAutomation" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="Tests" />
-      <option name="METHOD_NAME" value="testCompareArticleTitle" />
+      <option name="METHOD_NAME" value="testCheckSearchArticleInBackground" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -99,11 +99,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.Tests.Ex3" />
-        <item itemvalue="JUnit.Tests.testCompareArticleTitle" />
-        <item itemvalue="JUnit.Tests.Ex2" />
-        <item itemvalue="JUnit.Tests.androidSimpleTest1" />
-        <item itemvalue="JUnit.Tests.testCancelSearch" />
+        <item itemvalue="JUnit.Tests.testCheckSearchArticleInBackground" />
+        <item itemvalue="JUnit.Tests.testChangeScreenOrientationOnSearchResults" />
+        <item itemvalue="JUnit.Tests.testAmountOfEmptySearch" />
+        <item itemvalue="JUnit.Tests.testAmountOfNotEmptySearch" />
+        <item itemvalue="JUnit.Tests.saveFirstArticleToMyList" />
       </list>
     </recent_temporary>
   </component>
@@ -144,7 +144,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682803494786</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="ex3">
+      <created>1682804268849</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1682804268849</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -161,7 +168,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit" />
+    <MESSAGE value="ex3" />
+    <option name="LAST_COMMIT_MESSAGE" value="ex3" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
