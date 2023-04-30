@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29378336-1d20-4aef-a2dd-d14ca5bcf9cd" name="Changes" comment="commit">
+    <list default="true" id="29378336-1d20-4aef-a2dd-d14ca5bcf9cd" name="Changes" comment="ex5">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Tests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tests.java" afterDir="false" />
     </list>
@@ -46,7 +46,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.Tests.Ex5">
+  <component name="RunManager" selected="JUnit.Tests.Ex6">
     <configuration name="Tests.Ex5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaAppiumAutomation" />
       <option name="PACKAGE_NAME" value="" />
@@ -57,21 +57,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tests.testAmountOfEmptySearch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Tests.Ex6" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaAppiumAutomation" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="Tests" />
-      <option name="METHOD_NAME" value="testAmountOfEmptySearch" />
+      <option name="METHOD_NAME" value="Ex6" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tests.testAmountOfNotEmptySearch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Tests.testAmountOfEmptySearch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaAppiumAutomation" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="Tests" />
-      <option name="METHOD_NAME" value="testAmountOfNotEmptySearch" />
+      <option name="METHOD_NAME" value="testAmountOfEmptySearch" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -99,11 +99,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.Tests.Ex6" />
         <item itemvalue="JUnit.Tests.Ex5" />
         <item itemvalue="JUnit.Tests.testCheckSearchArticleInBackground" />
         <item itemvalue="JUnit.Tests.testChangeScreenOrientationOnSearchResults" />
         <item itemvalue="JUnit.Tests.testAmountOfEmptySearch" />
-        <item itemvalue="JUnit.Tests.testAmountOfNotEmptySearch" />
       </list>
     </recent_temporary>
   </component>
@@ -179,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682889702601</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="ex5">
+      <created>1682897524001</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1682897524001</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -197,7 +204,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="ex3" />
     <MESSAGE value="commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit" />
+    <MESSAGE value="ex5" />
+    <option name="LAST_COMMIT_MESSAGE" value="ex5" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -13,6 +13,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import javax.xml.bind.Element;
 import java.net.URL;
 import java.util.List;
 
@@ -286,6 +287,42 @@ public class Tests {
                 title_of_second_article,
                 "Cannot find title of second article"
         );
+    }
+
+    @Test
+    public void Ex6(){
+        String search_field = "//*[contains(@text, 'Search Wikipedia')]";
+        String search_input = "//*[contains(@text, 'Search…')]";
+        String title_of_test_article = "Java (programming language)";
+        String title_of_article_locator = "org.wikipedia:id/view_page_title_text";
+
+        waitForElementAndClick(
+                By.xpath(search_field),
+                "Cannot find 'Search Wikipedia' input",
+                5
+        );
+
+        waitForElementAndSendKeys(
+                By.xpath(search_input),
+                "Java",
+                "Cannot find 'Java' in search",
+                5
+        );
+
+        waitForElementAndClick(
+                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='" + title_of_test_article + "']"),
+                "Cannot find 'Search Wikipedia' result",
+                15
+        );
+
+
+        int amount_of_titles = getAmountOfElement(By.id(title_of_article_locator));
+
+        Assert.assertTrue(
+                "We found too few results!",
+                amount_of_titles > 0
+        );
+
     }
 
     @Test
