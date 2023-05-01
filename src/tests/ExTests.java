@@ -81,6 +81,12 @@ public class ExTests extends CoreTestCase
         myListsPageObject.swipeByArticleToDelete(title_of_first_article);
         myListsPageObject.waitForArticleToDisappearByTitle(title_of_first_article);
         myListsPageObject.waitForArticleToAppearByTitle(title_of_second_article);
+        myListsPageObject.openArticleByTitle(title_of_second_article);
+
+        assertEquals(
+                "Cannot find title of second article " + title_of_second_article,
+                title_of_second_article,
+                articlePageObject.getArticleTitle());
     }
 
     @Test
