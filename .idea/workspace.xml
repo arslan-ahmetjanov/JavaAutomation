@@ -4,9 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29378336-1d20-4aef-a2dd-d14ca5bcf9cd" name="Changes" comment="ex5">
+    <list default="true" id="29378336-1d20-4aef-a2dd-d14ca5bcf9cd" name="Changes" comment="ex6">
+      <change afterPath="$PROJECT_DIR$/src/lib/CoreTestCase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/ui/ArticlePageObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/ui/MainPageObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/ui/MyListsPageObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/ui/NavigationUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/ui/SearchPageObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/ArticleTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/ChangeAppConditionTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/ExTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/MyListsTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/SearchTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,32 +57,50 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.Tests.Ex6">
-    <configuration name="Tests.Ex5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.ExTests.testEx6">
+    <configuration name="ExTests.testEx3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaAppiumAutomation" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="Tests" />
-      <option name="METHOD_NAME" value="Ex5" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.ExTests" />
+      <option name="METHOD_NAME" value="testEx3" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tests.Ex6" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ExTests.testEx5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaAppiumAutomation" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="Tests" />
-      <option name="METHOD_NAME" value="Ex6" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.ExTests" />
+      <option name="METHOD_NAME" value="testEx5" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tests.testAmountOfEmptySearch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ExTests.testEx6" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaAppiumAutomation" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="Tests" />
-      <option name="METHOD_NAME" value="testAmountOfEmptySearch" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.ExTests" />
+      <option name="METHOD_NAME" value="testEx6" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -99,11 +128,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.Tests.Ex6" />
-        <item itemvalue="JUnit.Tests.Ex5" />
+        <item itemvalue="JUnit.ExTests.testEx6" />
+        <item itemvalue="JUnit.ExTests.testEx5" />
+        <item itemvalue="JUnit.ExTests.testEx3" />
         <item itemvalue="JUnit.Tests.testCheckSearchArticleInBackground" />
         <item itemvalue="JUnit.Tests.testChangeScreenOrientationOnSearchResults" />
-        <item itemvalue="JUnit.Tests.testAmountOfEmptySearch" />
       </list>
     </recent_temporary>
   </component>
@@ -186,7 +215,21 @@
       <option name="project" value="LOCAL" />
       <updated>1682897524001</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="ex6">
+      <created>1682898471597</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1682898471597</updated>
+    </task>
+    <task id="LOCAL-00012" summary="ex6">
+      <created>1682898519878</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1682898519878</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -205,7 +248,8 @@
     <MESSAGE value="ex3" />
     <MESSAGE value="commit" />
     <MESSAGE value="ex5" />
-    <option name="LAST_COMMIT_MESSAGE" value="ex5" />
+    <MESSAGE value="ex6" />
+    <option name="LAST_COMMIT_MESSAGE" value="ex6" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
