@@ -39,7 +39,7 @@ public class ArticlePageObject extends MainPageObject{
 
     public void assertTitlePresent()
     {
-        this.assertElementPresent(By.xpath(TITLE), "We supposed find any results");
+        this.assertElementPresent(By.id(TITLE), "We supposed find any results");
     }
 
     public void swipeToFooter()
