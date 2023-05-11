@@ -11,7 +11,7 @@ import java.time.Duration;
 
 public class CoreTestCase extends TestCase {
     protected AppiumDriver driver;
-    private static String AppiumURL = "http://127.0.0.1:4723/wd/hub";
+    private static String AppiumURL = "http://127.0.0.1:4723";
 
     @Override
     protected void setUp() throws Exception
@@ -28,6 +28,8 @@ public class CoreTestCase extends TestCase {
         capabilities.setCapability("appActivity",".main.MainActivity");
         capabilities.setCapability("app",
                 "/Users/arslan/Desktop/course/apks/org.wikipedia.apk");
+        capabilities.setCapability("automationName",
+                "UiAutomator2");
 
         driver = new AndroidDriver(new URL(AppiumURL), capabilities);
         this.rotateScreenPortrait();
