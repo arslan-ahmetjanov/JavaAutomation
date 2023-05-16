@@ -17,19 +17,19 @@ public class ExTests extends CoreTestCase
     public void testEx2()
     {
         mainPageObject.assertElementHasText(
-                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                "xpath://*[contains(@text, 'Search Wikipedia')]",
                 "Search Wikipedia",
                 "We see unexpected text!"
         );
 
         mainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                "xpath://*[contains(@text, 'Search Wikipedia')]",
                 "Cannot find field 'Search Wikipedia'",
                 5
         );
 
         mainPageObject.assertElementHasText(
-                By.xpath("//*[contains(@text, 'Search…')]"),
+                "xpath://*[contains(@text, 'Search…')]",
                 "Search…",
                 "We see unexpected text!"
         );

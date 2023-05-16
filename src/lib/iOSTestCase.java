@@ -24,11 +24,9 @@ public class iOSTestCase extends TestCase {
         capabilities.setCapability("platformName","iOS");
         capabilities.setCapability("deviceName","iPhone SE (3rd generation)");
         capabilities.setCapability("platformVersion","16.4");
-        capabilities.setCapability("automationName","XCUITest");
         capabilities.setCapability("app",
                 "/Users/arslan/Desktop/course/apps/Wikipedia.app");
-        capabilities.setCapability("automationName",
-                "UiAutomator2");
+        capabilities.setCapability("automationName","XCUITest");
 
         driver = new IOSDriver(new URL(AppiumURL), capabilities);
         this.rotateScreenPortrait();
