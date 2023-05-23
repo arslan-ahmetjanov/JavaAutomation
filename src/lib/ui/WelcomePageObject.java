@@ -10,7 +10,8 @@ public class WelcomePageObject extends MainPageObject{
             STEP_ADD_OR_EDIT_PREFERRED_LANG_LINK = "xpath://*[@name='Add or edit preferred languages']",
             STEP_LEARN_MORE_ABOUT_DATA_COLLECTED_LINK = "xpath://*[@name='Learn more about data collected']",
             NEXT_BUTTON = "xpath://*[@name='Next']",
-            GET_STARTED_BUTTON = "xpath://*[@name='Get started']";
+            GET_STARTED_BUTTON = "xpath://*[@name='Get started']",
+            SKIP = "xpath://*[@name='Skip']";
 
 
 
@@ -48,5 +49,10 @@ public class WelcomePageObject extends MainPageObject{
     {
         this.waitForElementAndClick(GET_STARTED_BUTTON,
                 "Cannot find 'Get started' button", 10);
+    }
+
+    public void clickSkipButton()
+    {
+        this.waitForElementAndClick(SKIP, "Cannot find 'Skip' button", 10);
     }
 }

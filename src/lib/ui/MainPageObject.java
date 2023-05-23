@@ -10,11 +10,10 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.List;
 import java.util.regex.Pattern;
-
+import lib.Platform;
 public class MainPageObject {
     protected AppiumDriver driver;
 
@@ -68,8 +67,14 @@ public class MainPageObject {
                 "Cannot find WebElement",
                 15
         );
-        String text = webElement.getAttribute("text");
-        Assert.assertEquals(error_message, expected_value, text);
+
+        if (Platform.getInstance().isAndroid()){
+            String text = webElement.getAttribute("text");
+            Assert.assertEquals(error_message, expected_value, text);
+        } else {
+            String value = webElement.getAttribute("value");
+            Assert.assertEquals(error_message, expected_value, value);
+        }
     }
 
     public void swipeUp(int timeOfSwipe){

@@ -2,6 +2,8 @@ package tests;
 
 import lib.CoreTestCase;
 import lib.ui.*;
+import lib.ui.factory.ArticlePageObjectFactory;
+import lib.ui.factory.SearchPageObjectFactory;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -38,7 +40,7 @@ public class ExTests extends CoreTestCase
     @Test
     public void testEx3()
     {
-        SearchPageObject searchPageObject = new SearchPageObject(driver);
+        SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.initSearchInput();
         searchPageObject.typeSearchLine("Java");
         searchPageObject.waitForSearchResult("Island of Indonesia, Southeast Asia");
@@ -52,12 +54,12 @@ public class ExTests extends CoreTestCase
 
     @Test
     public void testEx5(){
-        SearchPageObject searchPageObject = new SearchPageObject(driver);
+        SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.initSearchInput();
         searchPageObject.typeSearchLine("Java");
         searchPageObject.clickByArticleWithSubstring("High-level programming language");
 
-        ArticlePageObject articlePageObject = new ArticlePageObject(driver);
+        ArticlePageObject articlePageObject = ArticlePageObjectFactory.get(driver);
         articlePageObject.waitForTitleElement();
         String title_of_first_article = articlePageObject.getArticleTitle();
         String name_of_folder = "Learning Programming";
@@ -92,12 +94,12 @@ public class ExTests extends CoreTestCase
     @Test
     public void testEx6()
     {
-        SearchPageObject searchPageObject = new SearchPageObject(driver);
+        SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.initSearchInput();
         searchPageObject.typeSearchLine("Java");
         searchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
 
-        ArticlePageObject articlePageObject = new ArticlePageObject(driver);
+        ArticlePageObject articlePageObject = ArticlePageObjectFactory.get(driver);
         articlePageObject.assertTitlePresent();
     }
 
