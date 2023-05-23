@@ -1,13 +1,15 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import lib.Platform;
 import org.openqa.selenium.By;
 
-public class MyListsPageObject extends MainPageObject{
+abstract public class MyListsPageObject extends MainPageObject{
 
-    private static final String
-            FOLDER_BY_NAME_TPL = "xpath://*[@text='{FOLDER_NAME}']",
-            ARTICLE_BY_TITLE_TPL = "xpath://*[@text='{TITLE}']";
+    protected static String
+            FOLDER_BY_NAME_TPL,
+            ARTICLE_BY_TITLE_TPL,
+            CLOSE_BUTTON;
 
     // TEMPLATES METHODS
     private static String getFolderXpathByName(String name_of_folder){
@@ -65,6 +67,21 @@ public class MyListsPageObject extends MainPageObject{
         this.swipeElementToLeft(
                 article_xpath,
                 "Cannot find saved article"
+        );
+
+        if (Platform.getInstance().isiOS())
+        {
+            this.clickElementToTheRightUpperCorner(article_xpath, "Cannot find saved article");
+        }
+
+        this.waitForArticleToDisappearByTitle(article_title);
+    }
+
+    public void clickCanselButton(){
+        this.waitForElementAndClick(
+                CLOSE_BUTTON,
+                "Cannot find and click search cancel button",
+                5
         );
     }
 }

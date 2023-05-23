@@ -3,6 +3,8 @@ package tests;
 import lib.CoreTestCase;
 import lib.ui.*;
 import lib.ui.factory.ArticlePageObjectFactory;
+import lib.ui.factory.MyListsPageObjectFactory;
+import lib.ui.factory.NavigationUIFactory;
 import lib.ui.factory.SearchPageObjectFactory;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -75,10 +77,10 @@ public class ExTests extends CoreTestCase
         articlePageObject.addArticleToOldList(name_of_folder);
         articlePageObject.closeArticle();
 
-        NavigationUI navigationUI = new NavigationUI(driver);
+        NavigationUI navigationUI = NavigationUIFactory.get(driver);
         navigationUI.clickMyLists();
 
-        MyListsPageObject myListsPageObject = new MyListsPageObject(driver);
+        MyListsPageObject myListsPageObject = MyListsPageObjectFactory.get(driver);
         myListsPageObject.openFolderByName(name_of_folder);
         myListsPageObject.swipeByArticleToDelete(title_of_first_article);
         myListsPageObject.waitForArticleToDisappearByTitle(title_of_first_article);
