@@ -4,51 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29378336-1d20-4aef-a2dd-d14ca5bcf9cd" name="Changes" comment="ex10">
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/assets/codemirror/config/codemirror-config-ami.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/assets/codemirror/config/codemirror-config-blk.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/assets/codemirror/config/codemirror-config-dag.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/assets/codemirror/config/codemirror-config-kcg.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/assets/codemirror/config/codemirror-config-pcm.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/assets/codemirror/config/codemirror-config-pwn.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/assets/codemirror/config/codemirror-config-shi.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/bg.lproj/Localizable.strings" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/wikipedia-namespaces/ami.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/wikipedia-namespaces/blk.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/wikipedia-namespaces/dag.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/wikipedia-namespaces/guw.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/wikipedia-namespaces/kcg.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/wikipedia-namespaces/mad.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/wikipedia-namespaces/mni.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/wikipedia-namespaces/nia.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/wikipedia-namespaces/pcm.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/wikipedia-namespaces/pwn.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/wikipedia-namespaces/shi.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/wikipedia-namespaces/skr.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Frameworks/WMF.framework/wikipedia-namespaces/tay.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/PlugIns/WidgetsExtension.appex/Widget Featured Content Preview.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/Widget Featured Content Preview.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/Wikipedia.app/bg.lproj/InfoPlist.strings" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/Platform.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/ui/android/AndroidArticlePageObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/ui/android/AndroidSearchPageObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/ui/factory/ArticlePageObjectFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/ui/factory/SearchPageObjectFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/ui/ios/iOSArticlePageObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/ui/ios/iOSSearchPageObject.java" afterDir="false" />
+    <list default="true" id="29378336-1d20-4aef-a2dd-d14ca5bcf9cd" name="Changes" comment="add factory 1.0">
+      <change afterPath="$PROJECT_DIR$/src/lib/ui/android/AndroidMyListsPageObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/ui/android/AndroidNavigationUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/ui/factory/MyListsPageObjectFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/ui/factory/NavigationUIFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/ui/ios/iOSMyListsPageObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lib/ui/ios/iOSNavigationUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/CoreTestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/CoreTestCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/iOSTestCase.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/ui/ArticlePageObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/ui/ArticlePageObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/ui/MainPageObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/ui/MainPageObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/ui/SearchPageObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/ui/SearchPageObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/ui/WelcomePageObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/ui/WelcomePageObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/ui/MyListsPageObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/ui/MyListsPageObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/ui/NavigationUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/ui/NavigationUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/ui/ios/iOSArticlePageObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/ui/ios/iOSArticlePageObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tests/ArticleTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/ArticleTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/ChangeAppConditionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/ChangeAppConditionTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tests/ExTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/ExTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tests/MyListsTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/MyListsTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/SearchTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/SearchTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/iOS/GetStartedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/GetStartedTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,22 +60,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/libs" />
@@ -113,7 +84,7 @@
       <recent name="lib" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ArticleTests.testCompareArticleTitle">
+  <component name="RunManager" selected="JUnit.MyListsTests.testSaveFirstArticleToMyList">
     <configuration name="ArticleTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaAppiumAutomation" />
       <extension name="coverage">
@@ -152,6 +123,44 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ArticleTests.testSwipeArticle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JavaAppiumAutomation" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.ArticleTests" />
+      <option name="METHOD_NAME" value="testSwipeArticle" />
+      <option name="TEST_OBJECT" value="method" />
+      <envs>
+        <env name="PLATFORM" value="ios" />
+      </envs>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MyListsTests.testSaveFirstArticleToMyList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JavaAppiumAutomation" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.MyListsTests" />
+      <option name="METHOD_NAME" value="testSaveFirstArticleToMyList" />
+      <option name="TEST_OBJECT" value="method" />
+      <envs>
+        <env name="PLATFORM" value="ios" />
+      </envs>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <module name="JavaAppiumAutomation" />
       <option name="METHOD_NAME" value="" />
@@ -165,6 +174,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MyListsTests.testSaveFirstArticleToMyList" />
+        <item itemvalue="JUnit.ArticleTests.testSwipeArticle" />
         <item itemvalue="JUnit.ArticleTests.testCompareArticleTitle" />
         <item itemvalue="JUnit.ArticleTests" />
       </list>
@@ -326,7 +337,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684240534242</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="add factory 1.0">
+      <created>1684830476606</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1684830476606</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -351,7 +369,8 @@
     <MESSAGE value="error" />
     <MESSAGE value="update and fix" />
     <MESSAGE value="ex10" />
-    <option name="LAST_COMMIT_MESSAGE" value="ex10" />
+    <MESSAGE value="add factory 1.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="add factory 1.0" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

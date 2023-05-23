@@ -51,10 +51,19 @@ abstract public class ArticlePageObject extends MainPageObject{
 
     public void swipeToFooter()
     {
-        this.swipeUpToFindElement(
-                FOOTER_ELEMENT,
-                "Cannot find the end of article",
-                20);
+        if(Platform.getInstance().isAndroid())
+        {
+            this.swipeUpToFindElement(
+                    FOOTER_ELEMENT,
+                    "Cannot find the end of article",
+                    40);
+        } else
+        {
+            this.swipeUpTitleElementAppear(FOOTER_ELEMENT,
+                    "Cannot find the end of article",
+                    40);
+        }
+
     }
 
     public void addArticleToNewList(String name_of_folder)
@@ -96,6 +105,7 @@ abstract public class ArticlePageObject extends MainPageObject{
                 5
         );
     }
+
     public void addArticleToOldList(String name_of_folder)
     {
         this.waitForElementAndClick(
@@ -116,8 +126,12 @@ abstract public class ArticlePageObject extends MainPageObject{
                 "Cannot find list by name " + name_of_folder,
                 5
         );
-
     }
+    public void addArticlesToMySaved()
+    {
+        this.waitForElementAndClick(OPTIONS_ADD_TO_MY_LIST_BUTTON, "Cannot find option to add article to reading list", 5);
+    }
+
 
     public void closeArticle()
     {

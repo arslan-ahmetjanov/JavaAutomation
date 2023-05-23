@@ -1,16 +1,20 @@
 package tests;
 
 import lib.CoreTestCase;
+import lib.Platform;
 import lib.ui.ArticlePageObject;
 import lib.ui.MyListsPageObject;
 import lib.ui.NavigationUI;
 import lib.ui.SearchPageObject;
 import lib.ui.factory.ArticlePageObjectFactory;
+import lib.ui.factory.MyListsPageObjectFactory;
+import lib.ui.factory.NavigationUIFactory;
 import lib.ui.factory.SearchPageObjectFactory;
 import org.junit.Test;
 
 public class MyListsTests extends CoreTestCase
 {
+    private String name_of_folder = "Learning Programming";
     @Test
     public void testSaveFirstArticleToMyList()
     {
@@ -22,16 +26,31 @@ public class MyListsTests extends CoreTestCase
         ArticlePageObject articlePageObject = ArticlePageObjectFactory.get(driver);
         articlePageObject.waitForTitleElement();
         String article_title = articlePageObject.getArticleTitle();
-        String name_of_folder = "Learning Programming";
-        articlePageObject.addArticleToNewList(name_of_folder);
-        articlePageObject.closeArticle();
+        if (Platform.getInstance().isAndroid())
+        {
+            articlePageObject.addArticleToNewList(name_of_folder);
+        } else
+        {
+            articlePageObject.addArticlesToMySaved();
+        }
 
-        NavigationUI navigationUI = new NavigationUI(driver);
+        articlePageObject.closeArticle();
+        if (Platform.getInstance().isiOS())
+        {
+            searchPageObject.clickCanselSearchButton();
+        }
+
+        NavigationUI navigationUI = NavigationUIFactory.get(driver);
         navigationUI.clickMyLists();
 
-        MyListsPageObject myListsPageObject = new MyListsPageObject(driver);
-        myListsPageObject.openFolderByName(name_of_folder);
-        myListsPageObject.swipeByArticleToDelete(article_title);
-        myListsPageObject.waitForArticleToDisappearByTitle(article_title);
+        MyListsPageObject myListsPageObject = MyListsPageObjectFactory.get(driver);
+        if (Platform.getInstance().isAndroid())
+        {
+            myListsPageObject.openFolderByName(name_of_folder);
+        } else
+        {
+            myListsPageObject.clickCanselButton();
+        }
+            myListsPageObject.swipeByArticleToDelete(article_title);
     }
 }
