@@ -40,8 +40,14 @@ public class MainPageObject {
         return element;
     }
 
-    public WebElement waitForElementAndSendKeys(String locator, String value, String error_message, long timeoutInSeconds){
+    public WebElement waitForElementAndClear(String locator, String error_message, long timeoutInSeconds){
         WebElement element = waitForElementPresent(locator, error_message, timeoutInSeconds);
+        element.clear();
+        return element;
+    }
+
+    public WebElement waitForElementAndSendKeys(String locator, String value, String error_message, long timeoutInSeconds){
+        WebElement element = waitForElementAndClear(locator, error_message, timeoutInSeconds);
         element.sendKeys(value);
         return element;
     }
@@ -53,12 +59,6 @@ public class MainPageObject {
         return wait.until(
                 ExpectedConditions.invisibilityOfElementLocated(by)
         );
-    }
-
-    public WebElement waitForElementAndClear(String locator, String error_message, long timeoutInSeconds){
-        WebElement element = waitForElementPresent(locator, error_message, timeoutInSeconds);
-        element.clear();
-        return element;
     }
 
     public void assertElementHasText(String locator, String expected_value, String error_message){
@@ -179,26 +179,6 @@ public class MainPageObject {
         return elements.size();
     }
 
-    public void  assertElementNotPresent(String locator, String error_message){
-        int amount_of_elements = getAmountOfElement(locator);
-        if (amount_of_elements > 0){
-            String default_message = "An element " + locator + " supposed to be not present";
-            throw new AssertionError(default_message + " " + error_message);
-        }
-    }
-    public void  assertElementPresent(String locator, String error_message){
-        int amount_of_elements = getAmountOfElement(locator);
-        if (amount_of_elements == 0){
-            String default_message = "An element " + locator + " supposed to be present";
-            throw new AssertionError(default_message + " " + error_message);
-        }
-    }
-
-    public String waitForElementAndGetAttribute(String locator, String attribute, String error_message, long timeoutInSeconds){
-        WebElement element = waitForElementPresent(locator, error_message, timeoutInSeconds);
-        return element.getAttribute(attribute);
-    }
-
     private By getLocatorByString(String locator_width_type)
     {
         String[] exploded_locator = locator_width_type.split(Pattern.quote(":"), 2);
@@ -213,4 +193,25 @@ public class MainPageObject {
             throw new IllegalArgumentException("Cannot get type of locator. Locator: " + locator_width_type);
         }
     }
+
+//    IRRELEVANT
+//    public void  assertElementNotPresent(String locator, String error_message){
+//        int amount_of_elements = getAmountOfElement(locator);
+//        if (amount_of_elements > 0){
+//            String default_message = "An element " + locator + " supposed to be not present";
+//            throw new AssertionError(default_message + " " + error_message);
+//        }
+//    }
+//    public void  assertElementPresent(String locator, String error_message){
+//        int amount_of_elements = getAmountOfElement(locator);
+//        if (amount_of_elements == 0){
+//            String default_message = "An element " + locator + " supposed to be present";
+//            throw new AssertionError(default_message + " " + error_message);
+//        }
+//    }
+//
+//    public String waitForElementAndGetAttribute(String locator, String attribute, String error_message, long timeoutInSeconds){
+//        WebElement element = waitForElementPresent(locator, error_message, timeoutInSeconds);
+//        return element.getAttribute(attribute);
+//    }
 }

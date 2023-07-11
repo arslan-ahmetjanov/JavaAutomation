@@ -7,6 +7,7 @@ import lib.Platform;
 abstract public class ArticlePageObject extends MainPageObject{
     protected static String
             TITLE,
+            SUBSTRING,
             FOOTER_ELEMENT,
             OPTIONS_BUTTON,
             OPTIONS_ADD_TO_MY_LIST_BUTTON,
@@ -21,32 +22,27 @@ abstract public class ArticlePageObject extends MainPageObject{
     }
 
     // TEMPLATES METHODS
-    private static String getSavedListXpathByName(String name_of_folder){
-        return MY_SAVED_LIST_BUTTON.replace("{NAME_OF_SAVED_LIST}", name_of_folder);
+    private static String getTitleByName(String name_of_title){
+        return TITLE.replace("{NAME_OF_TITLE}", name_of_title);
+    }
+
+    private static String getSubstringByName(String article_title){
+        return SUBSTRING.replace("{NAME_OF_SUBSTRING}", article_title);
     }
     // TEMPLATES METHODS
 
-    public WebElement waitForTitleElement(){
-        return this.waitForElementPresent(TITLE,
+    public WebElement waitForTitleElement(String name_of_title){
+        String title_name = getTitleByName(name_of_title);
+        return this.waitForElementPresent(title_name,
                 "Cannot find article title on page",
                 5);
     }
 
-    public String getArticleTitle(){
-        WebElement title_element = waitForTitleElement();
-        if (Platform.getInstance().isAndroid())
-        {
-            return title_element.getAttribute("text");
-        } else
-        {
-            return title_element.getAttribute("name");
-        }
-
-    }
-
-    public void assertTitlePresent()
-    {
-        this.assertElementPresent(TITLE, "We supposed find any results");
+    public WebElement waitForSubstringElement(String name_of_substring){
+        String title_name = getTitleByName(name_of_substring);
+        return this.waitForElementPresent(title_name,
+                "Cannot find article substring on page",
+                5);
     }
 
     public void swipeToFooter()
@@ -65,68 +61,6 @@ abstract public class ArticlePageObject extends MainPageObject{
         }
 
     }
-
-    public void addArticleToNewList(String name_of_folder)
-    {
-        this.waitForElementAndClick(
-                OPTIONS_BUTTON,
-                "Cannot find button to open article options",
-                5
-        );
-
-        this.waitForElementAndClick(
-                OPTIONS_ADD_TO_MY_LIST_BUTTON,
-                "Cannot find option to add article to reading list",
-                5
-        );
-
-        this.waitForElementAndClick(
-                ADD_TO_MY_LIST_OVERLAY,
-                "Cannot find 'Got It' tip overlay",
-                5
-        );
-
-        this.waitForElementAndClear(
-                MY_NAME_LIST_INPUT,
-                "Cannot find input to set name of articles folder",
-                5
-        );
-
-        this.waitForElementAndSendKeys(
-                MY_NAME_LIST_INPUT,
-                name_of_folder,
-                "Cannot put text into articles folder input",
-                5
-        );
-
-        this.waitForElementAndClick(
-                MY_LIST_OK_BUTTON,
-                "Cannot press 'OK' button",
-                5
-        );
-    }
-
-    public void addArticleToOldList(String name_of_folder)
-    {
-        this.waitForElementAndClick(
-                OPTIONS_BUTTON,
-                "Cannot find button to open article options",
-                5
-        );
-
-        this.waitForElementAndClick(
-                OPTIONS_ADD_TO_MY_LIST_BUTTON,
-                "Cannot find option to add article to reading list",
-                5
-        );
-
-        String folder_name_xpath = getSavedListXpathByName(name_of_folder);
-        this.waitForElementAndClick(
-                folder_name_xpath,
-                "Cannot find list by name " + name_of_folder,
-                5
-        );
-    }
     public void addArticlesToMySaved()
     {
         this.waitForElementAndClick(OPTIONS_ADD_TO_MY_LIST_BUTTON, "Cannot find option to add article to reading list", 5);
@@ -141,4 +75,80 @@ abstract public class ArticlePageObject extends MainPageObject{
                 5
         );
     }
+
+//    IRRELEVANT:
+//    private static String getSavedListXpathByName(String name_of_folder){
+//        return MY_SAVED_LIST_BUTTON.replace("{NAME_OF_SAVED_LIST}", name_of_folder);
+//    }
+//    public String getArticleTitle(){
+//        WebElement title_element = waitForTitleElement();
+//        if (Platform.getInstance().isAndroid())
+//        {
+//            return title_element.getAttribute("content-desc");
+//        } else
+//        {
+//            return title_element.getAttribute("name");
+//        }
+//    }
+//    public void addArticleToNewList(String name_of_folder)
+//    {
+//        this.waitForElementAndClick(
+//                OPTIONS_BUTTON,
+//                "Cannot find button to open article options",
+//                5
+//        );
+//
+//        this.waitForElementAndClick(
+//                OPTIONS_ADD_TO_MY_LIST_BUTTON,
+//                "Cannot find option to add article to reading list",
+//                5
+//        );
+//
+//        this.waitForElementAndClick(
+//                ADD_TO_MY_LIST_OVERLAY,
+//                "Cannot find 'Got It' tip overlay",
+//                5
+//        );
+//
+//        this.waitForElementAndClear(
+//                MY_NAME_LIST_INPUT,
+//                "Cannot find input to set name of articles folder",
+//                5
+//        );
+//
+//        this.waitForElementAndSendKeys(
+//                MY_NAME_LIST_INPUT,
+//                name_of_folder,
+//                "Cannot put text into articles folder input",
+//                5
+//        );
+//
+//        this.waitForElementAndClick(
+//                MY_LIST_OK_BUTTON,
+//                "Cannot press 'OK' button",
+//                5
+//        );
+//    }
+//
+//    public void addArticleToOldList(String name_of_folder)
+//    {
+//        this.waitForElementAndClick(
+//                OPTIONS_BUTTON,
+//                "Cannot find button to open article options",
+//                5
+//        );
+//
+//        this.waitForElementAndClick(
+//                OPTIONS_ADD_TO_MY_LIST_BUTTON,
+//                "Cannot find option to add article to reading list",
+//                5
+//        );
+//
+//        String folder_name_xpath = getSavedListXpathByName(name_of_folder);
+//        this.waitForElementAndClick(
+//                folder_name_xpath,
+//                "Cannot find list by name " + name_of_folder,
+//                5
+//        );
+//    }
 }

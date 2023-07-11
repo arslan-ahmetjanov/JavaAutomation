@@ -6,7 +6,8 @@ import lib.ui.ArticlePageObject;
 public class iOSArticlePageObject extends ArticlePageObject
 {
     static {
-        TITLE = "id:Java (programming language)";
+        TITLE = "id:{NAME_OF_TITLE}";
+        SUBSTRING = "id:{NAME_OF_SUBSTRING}";
         FOOTER_ELEMENT = "id:View article in browser";
         OPTIONS_ADD_TO_MY_LIST_BUTTON = "id:Save for later";
         CLOSE_ARTICLE_BUTTON = "id:Back";

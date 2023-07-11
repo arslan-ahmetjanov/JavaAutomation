@@ -6,7 +6,7 @@ import lib.ui.NavigationUI;
 public class AndroidNavigationUI extends NavigationUI
 {
     static {
-        MY_LISTS_LINK = "xpath://android.widget.FrameLayout[@content-desc='My lists']";
+        MY_LISTS_LINK = "id:org.wikipedia:id/nav_tab_reading_lists";
     }
 
     public AndroidNavigationUI(AppiumDriver driver)

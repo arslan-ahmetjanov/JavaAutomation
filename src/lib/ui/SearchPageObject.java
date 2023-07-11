@@ -106,10 +106,5 @@ abstract public class SearchPageObject extends MainPageObject{
                 15
         );
     }
-
-    public void assertThereNoResultOfSearch()
-    {
-        this.assertElementNotPresent(SEARCH_RESULT_ELEMENT, "We supposed not find any results");
-    }
 }
 

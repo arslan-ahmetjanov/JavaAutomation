@@ -8,10 +8,10 @@ public class AndroidSearchPageObject extends SearchPageObject
      static  {
          SEARCH_INIT_ELEMENT = "id:org.wikipedia:id/search_container";
          SEARCH_INPUT = "id:org.wikipedia:id/search_src_text";
-         SEARCH_RESULT_BY_SUBSTRING_TPL = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='{SUBSTRING}']";
-         SEARCH_CANCEL_BUTTON = "id:org.wikipedia:id/search_close_btn";
-         SEARCH_RESULT_ELEMENT = "xpath://*[@resource-id='org.wikipedia:id/search_results_list']//*[@resource-id='org.wikipedia:id/page_list_item_container']";
-         SEARCH_EMPTY_RESULT_ELEMENT = "xpath://*[@text='No results found']";
+         SEARCH_RESULT_BY_SUBSTRING_TPL = "xpath://*[@class='android.view.ViewGroup']//*[@text='{SUBSTRING}']";
+         SEARCH_CANCEL_BUTTON = "xpath://android.widget.ImageButton[@content-desc='Navigate up']";
+         SEARCH_RESULT_ELEMENT = "xpath://*[@resource-id='org.wikipedia:id/search_results_list']//*[@class='android.view.ViewGroup']";
+         SEARCH_EMPTY_RESULT_ELEMENT = "xpath://*[@text='No results']";
      }
 
     public AndroidSearchPageObject(AppiumDriver driver)
