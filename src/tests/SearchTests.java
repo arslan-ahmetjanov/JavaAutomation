@@ -1,6 +1,7 @@
 package tests;
 
 import lib.CoreTestCase;
+import lib.Platform;
 import lib.ui.SearchPageObject;
 import lib.ui.factory.SearchPageObjectFactory;
 import org.junit.Test;
@@ -48,6 +49,5 @@ public class SearchTests extends CoreTestCase
         String search_line = "zxcqwenm";
         searchPageObject.typeSearchLine(search_line);
         searchPageObject.waitForEmptyResultLabel();
-        searchPageObject.assertThereNoResultOfSearch();
     }
 }

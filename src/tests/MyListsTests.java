@@ -14,31 +14,24 @@ import org.junit.Test;
 
 public class MyListsTests extends CoreTestCase
 {
-    private String name_of_folder = "Learning Programming";
+    private String name_of_folder = "Saved";
+    private String search_line = "Java";
+    private String article_title = "Java (programming language)";
+    private String article_substring = "Object-oriented programming language";
     @Test
     public void testSaveFirstArticleToMyList()
     {
         SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.initSearchInput();
-        searchPageObject.typeSearchLine("Java");
-        searchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        searchPageObject.typeSearchLine(search_line);
+        searchPageObject.clickByArticleWithSubstring(article_substring);
 
         ArticlePageObject articlePageObject = ArticlePageObjectFactory.get(driver);
-        articlePageObject.waitForTitleElement();
-        String article_title = articlePageObject.getArticleTitle();
-        if (Platform.getInstance().isAndroid())
-        {
-            articlePageObject.addArticleToNewList(name_of_folder);
-        } else
-        {
-            articlePageObject.addArticlesToMySaved();
-        }
-
+        articlePageObject.waitForTitleElement(article_title);
+        articlePageObject.addArticlesToMySaved();
         articlePageObject.closeArticle();
-        if (Platform.getInstance().isiOS())
-        {
-            searchPageObject.clickCanselSearchButton();
-        }
+
+        searchPageObject.clickCanselSearchButton();
 
         NavigationUI navigationUI = NavigationUIFactory.get(driver);
         navigationUI.clickMyLists();
@@ -51,6 +44,6 @@ public class MyListsTests extends CoreTestCase
         {
             myListsPageObject.clickCanselButton();
         }
-            myListsPageObject.swipeByArticleToDelete(article_title);
+        myListsPageObject.swipeByArticleToDelete(article_title);
     }
 }

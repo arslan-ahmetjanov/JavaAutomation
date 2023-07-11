@@ -4,14 +4,14 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 
 public class WelcomePageObject extends MainPageObject{
-    public static final String
-            STEP_LEARN_MORE_LINK = "xpath://*[@name='Learn more about Wikipedia']",
-            STEP_NEW_WAYS_TO_EXPLORE_TEXT = "xpath://*[@name='New ways to explore']",
-            STEP_ADD_OR_EDIT_PREFERRED_LANG_LINK = "xpath://*[@name='Add or edit preferred languages']",
-            STEP_LEARN_MORE_ABOUT_DATA_COLLECTED_LINK = "xpath://*[@name='Learn more about data collected']",
-            NEXT_BUTTON = "xpath://*[@name='Next']",
-            GET_STARTED_BUTTON = "xpath://*[@name='Get started']",
-            SKIP = "xpath://*[@name='Skip']";
+    protected static String
+            STEP_LEARN_MORE_LINK,
+            STEP_NEW_WAYS_TO_EXPLORE_TEXT,
+            STEP_ADD_OR_EDIT_PREFERRED_LANG_LINK,
+            STEP_LEARN_MORE_ABOUT_DATA_COLLECTED_LINK,
+            NEXT_BUTTON,
+            GET_STARTED_BUTTON,
+            SKIP;
 
 
 
