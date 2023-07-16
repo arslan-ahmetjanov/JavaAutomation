@@ -1,15 +1,18 @@
 package tests;
 
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.Platform;
 import lib.ui.*;
 import lib.ui.factory.ArticlePageObjectFactory;
-import lib.ui.factory.MyListsPageObjectFactory;
+import lib.ui.factory.ListsPageObjectFactory;
 import lib.ui.factory.NavigationUIFactory;
 import lib.ui.factory.SearchPageObjectFactory;
 import org.junit.Test;
 
-public class MyListsTests extends CoreTestCase
+@Epic("Tests for user lists")
+public class ListsTests extends CoreTestCase
 {
     private String login = "Arslan100500";
     private String password = "password100500";
@@ -18,7 +21,11 @@ public class MyListsTests extends CoreTestCase
     private String article_title = "Java (programming language)";
     private String article_substring = "Object-oriented programming language";
     @Test
-    public void testSaveFirstArticleToMyList() throws InterruptedException {
+    @Features(value = {@Feature(value = "Lists"), @Feature(value="Search"), @Feature(value = "Article")})
+    @DisplayName("Save First Article To List")
+    @Description("We add the first article to the list. Then delete it")
+    @Step("Starting test testSaveFirstArticleToList")
+    public void testSaveFirstArticleToList() throws InterruptedException {
         SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.initSearchInput();
         searchPageObject.typeSearchLine(search_line);
@@ -46,13 +53,13 @@ public class MyListsTests extends CoreTestCase
         navigationUI.openNavigation();
         navigationUI.clickMyLists();
 
-        MyListsPageObject myListsPageObject = MyListsPageObjectFactory.get(driver);
+        ListsPageObject listsPageObject = ListsPageObjectFactory.get(driver);
         if (Platform.getInstance().isAndroid())
         {
-            myListsPageObject.openFolderByName(name_of_folder);
+            listsPageObject.openFolderByName(name_of_folder);
         } else if (Platform.getInstance().isiOS()) {
-            myListsPageObject.clickCanselButton();
+            listsPageObject.clickLoginModalCanselButton();
         }
-        myListsPageObject.swipeByArticleToDelete(article_title);
+        listsPageObject.swipeByArticleToDelete(article_title);
     }
 }
