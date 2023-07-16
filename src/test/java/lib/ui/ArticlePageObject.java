@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -32,20 +33,25 @@ abstract public class ArticlePageObject extends MainPageObject{
     }
     // TEMPLATES METHODS
 
+    @Step("Wait for title on the article page")
     public WebElement waitForTitleElement(String name_of_title){
         String title_name = getTitleByName(name_of_title);
+        screenshot(this.takeScreenshot("article_title"));
         return this.waitForElementPresent(title_name,
                 "Cannot find article title on page",
                 5);
     }
 
+    @Step("Wait for substring on the article page")
     public WebElement waitForSubstringElement(String name_of_substring){
         String title_name = getSubstringByName(name_of_substring);
+        screenshot(this.takeScreenshot("article_substring"));
         return this.waitForElementPresent(title_name,
                 "Cannot find article substring on page",
                 5);
     }
 
+    @Step("Swipe to footer on article page")
     public void swipeToFooter()
     {
         if(Platform.getInstance().isAndroid())
@@ -63,7 +69,10 @@ abstract public class ArticlePageObject extends MainPageObject{
                     "Cannot find the end of article",
                     50);
         }
+        screenshot(this.takeScreenshot("article_footer_element"));
     }
+
+    @Step("Add the article to my list")
     public void addArticlesToMySaved () throws InterruptedException
     {
         if (Platform.getInstance().isMW())
@@ -73,8 +82,10 @@ abstract public class ArticlePageObject extends MainPageObject{
         }
         this.waitForElementAndClick(OPTIONS_ADD_TO_MY_LIST_BUTTON, "Cannot find option to add article to reading list", 5);
         Thread.sleep(1000);
+        screenshot(this.takeScreenshot("article_added"));
     }
 
+    @Step("Remove the article from saved if it has been added")
     public void removeArticlesFromMySavedIfItAdded()
     {
         if (this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON)){
@@ -83,8 +94,10 @@ abstract public class ArticlePageObject extends MainPageObject{
                     5);
             this.waitForElementPresent(OPTIONS_ADD_TO_MY_LIST_BUTTON, "Cannot find option to add article to reading list", 5);
         }
+        screenshot(this.takeScreenshot("article_removed"));
     }
 
+    @Step("Close the article")
     public void closeArticle()
     {
         if (Platform.getInstance().isAndroid() || Platform.getInstance().isiOS()){

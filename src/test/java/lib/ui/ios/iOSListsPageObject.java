@@ -1,17 +1,16 @@
 package lib.ui.ios;
 
-import io.appium.java_client.AppiumDriver;
-import lib.ui.MyListsPageObject;
+import lib.ui.ListsPageObject;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-public class iOSMyListsPageObject extends MyListsPageObject
+public class iOSListsPageObject extends ListsPageObject
 {
     static {
         ARTICLE_BY_TITLE_TPL = "xpath://XCUIElementTypeStaticText[@name='{TITLE}']";
         CLOSE_BUTTON = "id:Close";
     }
 
-    public iOSMyListsPageObject(RemoteWebDriver driver)
+    public iOSListsPageObject(RemoteWebDriver driver)
     {
         super(driver);
     }

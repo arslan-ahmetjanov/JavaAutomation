@@ -1,9 +1,10 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-abstract public class MyListsPageObject extends MainPageObject{
+abstract public class ListsPageObject extends MainPageObject{
 
     protected static String
             FOLDER_BY_NAME_TPL,
@@ -30,10 +31,11 @@ abstract public class MyListsPageObject extends MainPageObject{
     }
     // TEMPLATES METHODS
 
-    public MyListsPageObject(RemoteWebDriver driver){
+    public ListsPageObject(RemoteWebDriver driver){
         super(driver);
     }
 
+    @Step("Open folder lists")
     public void openFolderByName(String name_of_folder){
         String folder_name = getFolderByName(name_of_folder);
         this.waitForElementAndClick(
@@ -43,6 +45,7 @@ abstract public class MyListsPageObject extends MainPageObject{
         );
     }
 
+    @Step("Open article")
     public void openArticleByTitle(String article_title){
         String article = getSavedArticleByTitle(article_title);
         this.waitForElementAndClick(
@@ -50,8 +53,10 @@ abstract public class MyListsPageObject extends MainPageObject{
                 "Cannot find saved article by title " + article_title,
                 15
         );
+        screenshot(this.takeScreenshot("article_page"));
     }
 
+    @Step("Open article")
     public void waitImageOfArticle(String article_title){
         String image = getImageArticleByTitle(article_title);
         this.waitForElementPresent(
@@ -61,6 +66,7 @@ abstract public class MyListsPageObject extends MainPageObject{
         );
     }
 
+    @Step("Wait appear article")
     public void waitForArticleToAppearByTitle(String article_title){
         String article = getSavedArticleByTitle(article_title);
         this.waitForElementPresent(
@@ -68,8 +74,10 @@ abstract public class MyListsPageObject extends MainPageObject{
                 "Cannot find saved article by title " + article_title,
                 15
         );
+        screenshot(this.takeScreenshot("folder_page_with_any_article"));
     }
 
+    @Step("Wait disappear article")
     public void waitForArticleToDisappearByTitle(String article_title){
         String article = getSavedArticleByTitle(article_title);
         this.waitForElementNotPresent(
@@ -77,8 +85,10 @@ abstract public class MyListsPageObject extends MainPageObject{
                 "Saved article still present by title " + article_title,
                 15
         );
+        screenshot(this.takeScreenshot("folder_page_without_any_article"));
     }
 
+    @Step("Swipe article to delete")
     public void swipeByArticleToDelete (String article_title) throws InterruptedException{
         this.waitForArticleToAppearByTitle(article_title);
         String article = getSavedArticleByTitle(article_title);
@@ -104,7 +114,9 @@ abstract public class MyListsPageObject extends MainPageObject{
         this.waitForArticleToDisappearByTitle(article_title);
     }
 
-    public void clickCanselButton(){
+    @Step("Click cancel button to close login modal")
+    public void clickLoginModalCanselButton(){
+        screenshot(this.takeScreenshot("modal"));
         this.waitForElementAndClick(
                 CLOSE_BUTTON,
                 "Cannot find and click search cancel button",
