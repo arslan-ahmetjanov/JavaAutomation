@@ -6,6 +6,11 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    ignore:
+      # Мажорные обновления Selenium, Appium и JUnit ломают совместимость:
+      # такие переходы делаются отдельной задачей, а не автообновлением.
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
 
   - package-ecosystem: github-actions
     directory: /
