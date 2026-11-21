@@ -2,6 +2,7 @@ package tests;
 
 import io.qameta.allure.*;
 import io.qameta.allure.junit4.DisplayName;
+import lib.Config;
 import lib.CoreTestCase;
 import lib.Platform;
 import lib.ui.*;
@@ -9,12 +10,11 @@ import lib.ui.factory.ArticlePageObjectFactory;
 import lib.ui.factory.ListsPageObjectFactory;
 import lib.ui.factory.NavigationUIFactory;
 import lib.ui.factory.SearchPageObjectFactory;
+import org.junit.Assume;
 import org.junit.Test;
 @Epic("Homework test")
 public class HomeWorkTest extends CoreTestCase
 {
-    private String login = "***REMOVED***";
-    private String password = "***REMOVED***";
     private String name_of_folder = "Saved";
     private String search_line = "Java";
     private String first_article_title = "Java (programming language)";
@@ -26,7 +26,7 @@ public class HomeWorkTest extends CoreTestCase
     @DisplayName("This is a homework test")
     @Description("We add the two articles to the list. Then delete first article")
     @Step("Starting test testHomeWork")
-    public void testHomeWork() throws InterruptedException {
+    public void testHomeWork() {
         SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.initSearchInput();
         searchPageObject.typeSearchLine(search_line);
@@ -36,6 +36,13 @@ public class HomeWorkTest extends CoreTestCase
         articlePageObject.waitForTitleElement(first_article_title);
         articlePageObject.addArticlesToMySaved();
         if (Platform.getInstance().isMW()){
+            String login = Config.get("wiki.user", "");
+            String password = Config.get("wiki.password", "");
+            Assume.assumeTrue("wiki.user is not configured: pass -Dwiki.user=... or WIKI_USER environment variable",
+                    login != null && !login.isEmpty());
+            Assume.assumeTrue("wiki.password is not configured: pass -Dwiki.password=... or WIKI_PASSWORD environment variable",
+                    password != null && !password.isEmpty());
+
             AuthorizationPageObject Auth = new AuthorizationPageObject(driver);
             Auth.clickAuthButton();
             Auth.enterLoginData(login, password);
