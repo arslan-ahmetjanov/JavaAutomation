@@ -1,0 +1,25 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  compile:
+    name: compile tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '8'
+          cache: maven
+
+      # Прогон тестов требует Appium, эмулятор и приложение, поэтому в CI
+      # проверяется сборка: компиляция и разрешение зависимостей.
+      - name: Compile
+        run: mvn -B -ntp clean test-compile
