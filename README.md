@@ -10,11 +10,11 @@
 
 ## Что внутри
 
-- **PageObject + PageFactory** — сценарии не знают о локаторах: тест получает нужный объект страницы из фабрики, фабрика выбирает реализацию по платформе.
+- **PageObject + фабрики** — сценарии не знают о локаторах: тест получает нужный объект страницы из фабрики, фабрика выбирает реализацию по платформе.
 - **Единый раннер** — JUnit 4, тесты одинаково запускаются на трёх платформах.
-- **Отчёты Allure** — шаги, эпики и фичи, отдельное окружение в `environment.properties`.
-- **Переключение платформы** — переменная окружения `PLATFORM` (`android`, `ios`, `mobile_web`), без правки кода тестов.
-- **CI** — скрипты запуска эмулятора и тестов для Jenkins.
+- **Отчёты Allure** — шаги, эпики и фичи, отдельное окружение в `environment.properties`, скриншот упавшего теста вложением.
+- **Конфигурация без правки кода** — `lib/Config`: `-Dkey=value` → переменная окружения → `config.properties` → значение по умолчанию. Платформа, пути к приложениям, адрес Appium и доступы задаются снаружи.
+- **CI** — скрипты запуска эмулятора и всего набора тестов для Jenkins.
 
 ## Стек
 
@@ -25,14 +25,15 @@
 | Web | Selenium ChromeDriver, мобильный viewport 360×640 |
 | Тесты | JUnit 4.12 |
 | Отчётность | Allure 2.23.0 (`allure-junit4`, `allure-maven`) |
-| Логирование | SLF4J + Log4j |
+| Логирование | SLF4J + `slf4j-simple` |
 
 ## Архитектура
 
 ```
 src/test/java
 ├── lib
-│   ├── Platform.java            # singleton: выбор и создание драйвера по PLATFORM
+│   ├── Config.java              # настройки: -D → env → config.properties → default
+│   ├── Platform.java            # singleton: выбор и создание драйвера по платформе
 │   ├── CoreTestCase.java        # базовый тест: драйвер, Allure-env, welcome, MW-URL
 │   └── ui
 │       ├── *PageObject.java     # общие контракты страниц
@@ -42,16 +43,19 @@ src/test/java
 │       ├── ios                  # локаторы и действия iOS
 │       └── mobile_web           # локаторы и действия мобильного Web
 ├── tests                        # сценарии
-└── suites/TestSuite.java        # весь набор одним запуском
+├── suites/TestSuite.java        # весь набор одним запуском
+└── resources
+    ├── config.properties        # значения по умолчанию, без секретов
+    └── simplelogger.properties  # уровни логирования
 ```
 
 Как это работает:
 
 1. `CoreTestCase.setUp()` берёт драйвер у `Platform.getInstance()`.
-2. `Platform` читает `PLATFORM` и создаёт `AndroidDriver`, `IOSDriver` или `ChromeDriver` с нужными capabilities.
+2. `Platform` читает значение `platform` через `Config` и создаёт `AndroidDriver`, `IOSDriver` или `ChromeDriver` с capabilities из конфигурации. Неизвестная платформа — сразу `IllegalArgumentException` со списком допустимых значений.
 3. Тест запрашивает страницу через фабрику, например `SearchPageObjectFactory.get(driver)`.
 4. Фабрика проверяет платформу и возвращает `AndroidSearchPageObject`, `iOSSearchPageObject` или `MWSearchPageObject` — сценарий остаётся неизменным.
-5. `tearDown()` закрывает сессию.
+5. `TestWatcher` снимает скриншот упавшего теста до закрытия сессии, затем `tearDown()` закрывает драйвер (безопасно, если сессия не создалась).
 
 ## Покрытие
 
@@ -61,19 +65,51 @@ src/test/java
 | `ArticleTests` | заголовок статьи, свайп до футера | ✅ | ✅ | ✅ |
 | `ListsTests` | сохранение статьи в список и удаление из него | ✅ | ✅ | ✅ |
 | `HomeWorkTest` | две статьи в списке, удаление первой | ✅ | ✅ | ✅ |
-| `ChangeAppConditionTests` | смена ориентации, уход в фон и возврат | ✅ | ✅ | — |
-| `GetStartedTest` | прохождение welcome-экрана | — | ✅ | — |
+| `ChangeAppConditionTests` | смена ориентации, уход в фон и возврат | ✅ | ✅ | skipped |
+| `GetStartedTest` | прохождение welcome-экрана | skipped | ✅ | skipped |
 
-Сценарии со списками на Mobile Web требуют авторизации: логин и пароль тестового аккаунта заданы в тестовых классах.
+Сценарии со списками на Mobile Web требуют авторизации. Логин и пароль берутся из `wiki.user`/`wiki.password`; если они не заданы, тесты помечаются как skipped, а не падают. Неподдерживаемые платформы тоже отмечаются через `Assume` — в отчёте честный skipped.
 
 ## Требования
 
 - JDK 8+ и Maven 3.6+
-- Appium Server 1.x, доступный на `http://127.0.0.1:4723`
-- **Android**: Android SDK, эмулятор `and80` (Android 8.0), APK `apks/org.wikipedia.apk`
-- **iOS**: macOS, Xcode и симулятор `iPhone SE (3rd generation)`, iOS 16.4, сборка `apps/Wikipedia.app`
-- **Mobile Web**: Chrome и `chromedriver` из корня репозитория
+- Appium Server 1.x, доступный на `http://127.0.0.1:4723/wd/hub`
+- **Android**: Android SDK, эмулятор `and80` (Android 8.0), APK из `android.app`
+- **iOS**: macOS, Xcode и симулятор `iPhone SE (3rd generation)`, iOS 16.4, сборка из `ios.app`
+- **Mobile Web**: Chrome и бинарник `chromedriver` по пути из `chrome.driver`
 - Allure CLI — по желанию, для просмотра отчёта
+
+## Конфигурация
+
+Все значения читает `lib/Config`. Приоритет: системное свойство (`-Dkey=value`) → переменная окружения (`UPPER_SNAKE` от ключа) → `src/test/resources/config.properties` → значение по умолчанию. Относительные пути разрешаются от каталога запуска (`user.dir`), поэтому проект работает из любой папки.
+
+| Ключ | Переменная окружения | По умолчанию | Назначение |
+| --- | --- | --- | --- |
+| `platform` | `PLATFORM` | `android` | `android`, `ios` или `mobile_web` |
+| `appium.url` | `APPIUM_URL` | `http://127.0.0.1:4723/wd/hub` | адрес Appium Server |
+| `android.device` | `ANDROID_DEVICE` | `AndroidTestDevice` | имя устройства/эмулятора |
+| `android.version` | `ANDROID_VERSION` | `8.0` | версия Android |
+| `android.app` | `ANDROID_APP` | `apks/org.wikipedia.apk` | путь к APK |
+| `ios.device` | `IOS_DEVICE` | `iPhone SE (3rd generation)` | имя симулятора |
+| `ios.version` | `IOS_VERSION` | `16.4` | версия iOS |
+| `ios.app` | `IOS_APP` | `apps/Wikipedia.app` | путь к сборке приложения |
+| `chrome.driver` | `CHROME_DRIVER` | `chromedriver` | путь к chromedriver |
+| `wiki.url` | `WIKI_URL` | `https://en.m.wikipedia.org` | стартовый URL мобильного Web |
+| `wiki.user` | `WIKI_USER` | пусто | логин тестового аккаунта |
+| `wiki.password` | `WIKI_PASSWORD` | пусто | пароль тестового аккаунта |
+| `timeout.default` | `TIMEOUT_DEFAULT` | `15` | таймаут ожиданий, секунды |
+| `reset.app` | `RESET_APP` | `false` | `fullReset` для Appium и пропуск welcome-экрана в `setUp` |
+
+### Секреты
+
+Пароль в репозитории не хранится и в `config.properties` должен оставаться пустым. Для прогонов передавайте доступы снаружи:
+
+```bash
+export WIKI_USER='user@tests'
+export WIKI_PASSWORD='...'
+```
+
+В Jenkins — через Credentials и `withCredentials`, а не в тексте джобы. Для Викимедиа правильнее не пароль аккаунта, а bot password из `Special:BotPasswords`: он отзывается одной кнопкой и не даёт доступа к основному аккаунту.
 
 ## Подготовка
 
@@ -83,14 +119,7 @@ cd java-mobile-automation
 mvn -q test-compile
 ```
 
-Перед первым запуском поправьте `src/test/java/lib/Platform.java`:
-
-- путь к APK в capability `app`;
-- путь к `Wikipedia.app`;
-- путь к `chromedriver` в `chromedriverExecutable`;
-- при необходимости — `deviceName`, `platformVersion`, адрес Appium.
-
-Сейчас там абсолютные пути вида `/Users/arslan/...`, они работают только на машине автора.
+Правки кода не нужны: если APK, приложение или chromedriver лежат в других местах, задайте пути через `-D` или `config.properties`.
 
 Затем поднимите Appium и устройство:
 
@@ -102,15 +131,17 @@ emulator @and80                          # терминал 2, для Android
 
 ## Запуск
 
-Платформа задаётся переменной окружения `PLATFORM`:
+Платформа задаётся ключом `platform` (по умолчанию `android`):
 
 ```bash
-export PLATFORM=android       # macOS / Linux
-set PLATFORM=android          # Windows (cmd)
-$env:PLATFORM="android"       # Windows (PowerShell)
-```
+# через Maven
+mvn -Dplatform=mobile_web -Dtest=SearchTests test
 
-Допустимые значения: `android`, `ios`, `mobile_web`. Если переменная не задана, `Platform` не сможет выбрать драйвер и тест упадёт с сообщением `Cannot detect type of the Driver`.
+# либо переменной окружения
+export PLATFORM=mobile_web      # macOS / Linux
+set PLATFORM=mobile_web         # Windows (cmd)
+$env:PLATFORM="mobile_web"      # Windows (PowerShell)
+```
 
 ```bash
 # один класс
@@ -121,6 +152,9 @@ mvn -Dtest=ArticleTests#testCompareArticleTitle test
 
 # весь набор
 mvn -Dtest=TestSuite test
+
+# чистый стейт приложения (welcome-экран и первый запуск)
+mvn -Dplatform=ios -Dreset.app=true -Dtest=GetStartedTest test
 ```
 
 Отчёт Allure:
@@ -129,16 +163,16 @@ mvn -Dtest=TestSuite test
 mvn allure:serve
 ```
 
-Результаты прогона складываются в `target/allure-results`, HTML-отчёт собирается плагином `allure-maven`.
+Результаты прогона складываются в `target/allure-results`, HTML-отчёт собирается плагином `allure-maven`. Скриншоты складываются в `target/screenshots` и не засоряют рабочее дерево.
 
 ## CI
 
 | Скрипт | Назначение |
 | --- | --- |
 | `ci-scripts/runemulator.sh` | запуск эмулятора `@and80` |
-| `ci-scripts/runtestsuite.sh` | `PLATFORM=android` и запуск теста через Maven |
+| `ci-scripts/runtestsuite.sh` | `PLATFORM=android` (если не задан) и прогон всего `suites.TestSuite` |
 
-Jenkins-job поднимает эмулятор, выставляет `PLATFORM`, запускает Maven и публикует Allure-отчёт. Пути внутри скриптов тоже абсолютные — подставьте свои.
+Скрипты запускаются из своего каталога (`set -euo pipefail`, путь от `BASH_SOURCE`), абсолютных путей к домашнему каталогу в них нет. Jenkins-job поднимает эмулятор, выставляет `PLATFORM`, прогоняет Maven и публикует Allure-отчёт из `target/allure-results`.
 
 ## Скриншоты
 
@@ -148,9 +182,11 @@ Jenkins-job поднимает эмулятор, выставляет `PLATFORM`
 
 ## Известные ограничения
 
-- Capabilities и пути к приложениям захардкожены в `Platform.java` — под каждую среду их нужно менять.
-- Тесты списков и welcome-экрана зависят от состояния аккаунта и от того, первый ли это запуск приложения.
-- `chromedriver` в репозитории может не совпадать с локальной версией Chrome — тогда замените бинарник.
+- Локаторы и тексты привязаны к английской локали и конкретной версии приложения Wikipedia; при обновлении приложения их придётся править.
+- Тесты списков меняют состояние тестового аккаунта: ожидается, что статьи из сценария не добавлены в watchlist заранее.
+- `GetStartedTest` требует чистого состояния приложения — запускайте его с `-Dreset.app=true`.
+- `chromedriver` в репозитории может не совпадать с локальной версией Chrome — тогда укажите другой бинарник в `chrome.driver`.
+- Бинарники (APK, сборка iOS, chromedriver) лежат в репозитории: клонирование тяжёлое, при необходимости их стоит вынести в LFS или скачивание в CI.
 
 ## Курс
 
