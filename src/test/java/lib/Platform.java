@@ -104,7 +104,7 @@ public class Platform {
 
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("window-size=360,640");
-        chromeOptions.setCapability("chromedriverExecutable", "/Users/arslan/Desktop/JavaAppium/chromedriver");
+        chromeOptions.setCapability("chromedriverExecutable", "/Users/arslan/Desktop/java-mobile-automation/chromedriver");
         return chromeOptions;
     }
 }

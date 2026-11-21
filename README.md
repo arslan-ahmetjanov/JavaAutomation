@@ -1,4 +1,4 @@
-# JavaAutomation
+# java-mobile-automation
 
 Кроссплатформенный фреймворк UI-автоматизации тестирования приложения **Wikipedia** для **Android**, **iOS** и **мобильного Web**. Один набор тестовых сценариев, общие абстракции страниц и отдельная реализация PageObject под каждую платформу.
 
@@ -78,8 +78,8 @@ src/test/java
 ## Подготовка
 
 ```bash
-git clone https://github.com/arslan-ahmetjanov/JavaAutomation.git
-cd JavaAutomation
+git clone https://github.com/arslan-ahmetjanov/java-mobile-automation.git
+cd java-mobile-automation
 mvn -q test-compile
 ```
 

@@ -1,4 +1,4 @@
-package JavaAppium;
+package javamobileautomation;
 
 public class Main {
     public static void main(String[] args) {
