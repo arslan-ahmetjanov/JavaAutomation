@@ -1,4 +1,4 @@
-package javamobileautomation;
+package io.github.arslanahmetjanov.automation;
 
 public class Main {
     public static void main(String[] args) {
