@@ -11,6 +11,7 @@ abstract public class ListsPageObject extends MainPageObject{
             ARTICLE_BY_TITLE_TPL,
             CLOSE_BUTTON,
             REMOVE_FROM_SAVED_BUTTON,
+            WATCH_STATE_BY_TITLE_TPL,
             IMAGE_TITLE;
 
     // TEMPLATES METHODS
@@ -28,6 +29,10 @@ abstract public class ListsPageObject extends MainPageObject{
 
     private static String getImageArticleByTitle(String article_title){
         return IMAGE_TITLE.replace("{TITLE}", article_title);
+    }
+
+    private static String getWatchStateByTitle(String article_title){
+        return WATCH_STATE_BY_TITLE_TPL.replace("{TITLE}", article_title);
     }
     // TEMPLATES METHODS
 
@@ -89,28 +94,31 @@ abstract public class ListsPageObject extends MainPageObject{
     }
 
     @Step("Swipe article to delete")
-    public void swipeByArticleToDelete (String article_title) throws InterruptedException{
+    public void swipeByArticleToDelete (String article_title){
         this.waitForArticleToAppearByTitle(article_title);
         String article = getSavedArticleByTitle(article_title);
+
         if (Platform.getInstance().isiOS() || Platform.getInstance().isAndroid()) {
             this.swipeElementToLeft(
                     article,
                     "Cannot find saved article"
             );
+            if (Platform.getInstance().isiOS())
+            {
+                this.clickElementToTheRightUpperCorner(article, "Cannot find saved article");
+            }
         } else {
             String remove_locator = getRemovedButtonByTitle(article_title);
             this.waitForElementAndClick(remove_locator, "Cannot click button to remove article from saved.", 5);
-        }
-
-        if (Platform.getInstance().isiOS())
-        {
-            this.clickElementToTheRightUpperCorner(article, "Cannot find saved article");
-        }
-
-        if (Platform.getInstance().isMW()){
-            Thread.sleep(1000);
+            // После ответа сервера ссылка "Unwatch" снова становится "Watch", только тогда перезагружаем страницу.
+            this.waitForElementPresent(
+                    getWatchStateByTitle(article_title),
+                    "Watchlist state was not updated after removing the article",
+                    this.defaultTimeoutInSeconds()
+            );
             driver.navigate().refresh();
         }
+
         this.waitForArticleToDisappearByTitle(article_title);
     }
 

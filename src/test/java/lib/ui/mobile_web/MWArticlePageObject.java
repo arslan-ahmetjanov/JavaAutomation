@@ -9,6 +9,7 @@ public class MWArticlePageObject extends ArticlePageObject {
         FOOTER_ELEMENT = "css:footer";
         OPTIONS_ADD_TO_MY_LIST_BUTTON = "xpath://a[@title='Watch']|//a[@title='Add this page to your watchlist']";
         OPTIONS_REMOVE_FROM_MY_LIST_BUTTON = "xpath://a[@title='Unwatch']|//a[@title='Remove this page from your watchlist']";
+        LOGIN_PROMPT_ELEMENT = "xpath://a[text()='Log in']";
     }
 
     public MWArticlePageObject(RemoteWebDriver driver)

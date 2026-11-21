@@ -6,7 +6,6 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 public class AuthorizationPageObject extends MainPageObject{
     private static final String
     LOGIN_BUTTON = "xpath://a[text()='Log in']",
-    LOGIN_BUTTON_FIELD = "xpath://div[@class='drawer-container view-border-box']",
     LOGIN_INPUT = "css:input[name='wpName']",
     PASSWORD_INPUT = "css:input[name='wpPassword']",
     SUBMIT_BUTTON = "css:button#wpLoginAttempt";
@@ -17,8 +16,12 @@ public class AuthorizationPageObject extends MainPageObject{
     }
 
     @Step("Click auth button")
-    public void clickAuthButton() throws InterruptedException{
-        Thread.sleep(1000);
+    public void clickAuthButton(){
+        this.waitForElementToBeClickable(
+                LOGIN_BUTTON,
+                "Cannot find login button",
+                this.defaultTimeoutInSeconds()
+        );
         screenshot(this.takeScreenshot("login_button"));
         this.waitForElementAndClick(LOGIN_BUTTON, "Cannot call auth menu", 5);
     }

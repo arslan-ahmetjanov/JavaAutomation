@@ -7,6 +7,7 @@ public class MWListsPageObject extends ListsPageObject {
         static {
         ARTICLE_BY_TITLE_TPL = "xpath://li[@title='{TITLE}']/a[@class='title']/h3[contains(text(),'{TITLE}')]";
         REMOVE_FROM_SAVED_BUTTON = "xpath://li[@title='{TITLE}']/a[@aria-controls='mw-watchlink-notification']";
+        WATCH_STATE_BY_TITLE_TPL = "xpath://li[@title='{TITLE}']/a[@aria-controls='mw-watchlink-notification'][@title='Watch' or @title='Add this page to your watchlist']";
         IMAGE_TITLE = "xpath://li[@title='{TITLE}']/a[@class='title']/div[@class='list-thumb list-thumb-y']";
     }
 

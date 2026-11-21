@@ -1,8 +1,6 @@
 package lib.ui;
 
-import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class WelcomePageObject extends MainPageObject{
@@ -28,6 +26,17 @@ public class WelcomePageObject extends MainPageObject{
                 "Cannot find 'Learn more about Wikipedia' link", 10);
         screenshot(this.takeScreenshot("learn_more_link"));
     }
+
+    public boolean isLearnMoreLinkPresent(long timeoutInSeconds)
+    {
+        return this.isElementPresentWithWait(STEP_LEARN_MORE_LINK, timeoutInSeconds);
+    }
+
+    public boolean isSkipButtonPresent(long timeoutInSeconds)
+    {
+        return this.isElementPresentWithWait(SKIP, timeoutInSeconds);
+    }
+
     public void waitForNewWaysToExploreText()
     {
         this.waitForElementPresent(STEP_NEW_WAYS_TO_EXPLORE_TEXT,

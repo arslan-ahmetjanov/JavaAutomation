@@ -1,11 +1,15 @@
 package lib.ui;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebElement;
 import lib.Platform;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 abstract public class ArticlePageObject extends MainPageObject{
+    private static final Logger logger = LoggerFactory.getLogger(ArticlePageObject.class);
+
     protected static String
             TITLE,
             SUBSTRING,
@@ -17,7 +21,8 @@ abstract public class ArticlePageObject extends MainPageObject{
             MY_NAME_LIST_INPUT,
             MY_LIST_OK_BUTTON,
             MY_SAVED_LIST_BUTTON,
-            CLOSE_ARTICLE_BUTTON;
+            CLOSE_ARTICLE_BUTTON,
+            LOGIN_PROMPT_ELEMENT;
 
     public ArticlePageObject(RemoteWebDriver driver){
         super(driver);
@@ -73,7 +78,7 @@ abstract public class ArticlePageObject extends MainPageObject{
     }
 
     @Step("Add the article to my list")
-    public void addArticlesToMySaved () throws InterruptedException
+    public void addArticlesToMySaved ()
     {
         if (Platform.getInstance().isMW())
         {
@@ -81,7 +86,19 @@ abstract public class ArticlePageObject extends MainPageObject{
 
         }
         this.waitForElementAndClick(OPTIONS_ADD_TO_MY_LIST_BUTTON, "Cannot find option to add article to reading list", 5);
-        Thread.sleep(1000);
+        if (Platform.getInstance().isMW()) {
+            // В зависимости от авторизации клик либо добавляет статью в watchlist,
+            // либо открывает форму логина — ждём любое из этих состояний.
+            this.waitForAnyElementPresent(
+                    new String[]{OPTIONS_REMOVE_FROM_MY_LIST_BUTTON, LOGIN_PROMPT_ELEMENT},
+                    "Article was not added to the watchlist",
+                    this.defaultTimeoutInSeconds());
+        } else {
+            // На Android и iOS тап по Save открывает нижний лист выбора списка, и стабильного
+            // признака «сохранено» у разных версий приложения нет: добавление проверяет
+            // следующий шаг (открытие My lists ждёт появления статьи), а не эта пауза.
+            logger.info("Save action was triggered for the article, the result is verified on the My lists page");
+        }
         screenshot(this.takeScreenshot("article_added"));
     }
 
@@ -107,84 +124,8 @@ abstract public class ArticlePageObject extends MainPageObject{
                     5
             );
         } else {
-            System.out.println("Method closeArticle() does nothing for platform " + Platform.getInstance().getPlatformVar());
+            logger.info("Method closeArticle() does nothing for platform {}", Platform.getInstance().getPlatformVar());
         }
 
     }
-
-//    IRRELEVANT:
-//    private static String getSavedListXpathByName(String name_of_folder){
-//        return MY_SAVED_LIST_BUTTON.replace("{NAME_OF_SAVED_LIST}", name_of_folder);
-//    }
-//    public String getArticleTitle(){
-//        WebElement title_element = waitForTitleElement();
-//        if (Platform.getInstance().isAndroid())
-//        {
-//            return title_element.getAttribute("content-desc");
-//        } else
-//        {
-//            return title_element.getAttribute("name");
-//        }
-//    }
-//    public void addArticleToNewList(String name_of_folder)
-//    {
-//        this.waitForElementAndClick(
-//                OPTIONS_BUTTON,
-//                "Cannot find button to open article options",
-//                5
-//        );
-//
-//        this.waitForElementAndClick(
-//                OPTIONS_ADD_TO_MY_LIST_BUTTON,
-//                "Cannot find option to add article to reading list",
-//                5
-//        );
-//
-//        this.waitForElementAndClick(
-//                ADD_TO_MY_LIST_OVERLAY,
-//                "Cannot find 'Got It' tip overlay",
-//                5
-//        );
-//
-//        this.waitForElementAndClear(
-//                MY_NAME_LIST_INPUT,
-//                "Cannot find input to set name of articles folder",
-//                5
-//        );
-//
-//        this.waitForElementAndSendKeys(
-//                MY_NAME_LIST_INPUT,
-//                name_of_folder,
-//                "Cannot put text into articles folder input",
-//                5
-//        );
-//
-//        this.waitForElementAndClick(
-//                MY_LIST_OK_BUTTON,
-//                "Cannot press 'OK' button",
-//                5
-//        );
-//    }
-//
-//    public void addArticleToOldList(String name_of_folder)
-//    {
-//        this.waitForElementAndClick(
-//                OPTIONS_BUTTON,
-//                "Cannot find button to open article options",
-//                5
-//        );
-//
-//        this.waitForElementAndClick(
-//                OPTIONS_ADD_TO_MY_LIST_BUTTON,
-//                "Cannot find option to add article to reading list",
-//                5
-//        );
-//
-//        String folder_name_xpath = getSavedListXpathByName(name_of_folder);
-//        this.waitForElementAndClick(
-//                folder_name_xpath,
-//                "Cannot find list by name " + name_of_folder,
-//                5
-//        );
-//    }
 }

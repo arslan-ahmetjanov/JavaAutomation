@@ -5,22 +5,31 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import io.qameta.allure.Attachment;
+import lib.Config;
+import lib.Platform;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-import lib.Platform;
+
 public class MainPageObject {
+    private static final Logger logger = LoggerFactory.getLogger(MainPageObject.class);
+    private static final String SCREENSHOTS_DIRECTORY = "target/screenshots";
+
     protected RemoteWebDriver driver;
 
     public MainPageObject(RemoteWebDriver driver){
@@ -69,6 +78,58 @@ public class MainPageObject {
         );
     }
 
+    public WebElement waitForElementToBeClickable(String locator, String error_message, long timeoutInSeconds){
+        By by = this.getLocatorByString(locator);
+        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+        wait.withMessage(error_message + "\n");
+        return wait.until(
+                ExpectedConditions.elementToBeClickable(by)
+        );
+    }
+
+    /**
+     * Ждёт появления любого из переданных локаторов (null-элементы игнорируются).
+     */
+    public WebElement waitForAnyElementPresent(String[] locators, String error_message, long timeoutInSeconds){
+        final List<By> byList = new ArrayList<By>();
+        for (String locator : locators) {
+            if (locator != null) {
+                byList.add(this.getLocatorByString(locator));
+            }
+        }
+        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+        wait.withMessage(error_message + "\n");
+        return wait.until(new ExpectedCondition<WebElement>() {
+            @Override
+            public WebElement apply(WebDriver webDriver) {
+                for (By by : byList) {
+                    List<WebElement> elements = webDriver.findElements(by);
+                    if (!elements.isEmpty()) {
+                        return elements.get(0);
+                    }
+                }
+                return null;
+            }
+        });
+    }
+
+    /**
+     * Ждёт элемент коротким таймаутом и возвращает false, если он так и не появился.
+     */
+    public boolean isElementPresentWithWait(String locator, long timeoutInSeconds){
+        try {
+            this.waitForElementPresent(locator, "Cannot find element " + locator, timeoutInSeconds);
+            return true;
+        } catch (TimeoutException e) {
+            logger.debug("Element is not present after {}s: {}", timeoutInSeconds, locator);
+            return false;
+        }
+    }
+
+    public long defaultTimeoutInSeconds(){
+        return Config.getDefaultTimeout();
+    }
+
     public void assertElementHasText(String locator, String expected_value, String error_message){
         WebElement webElement = waitForElementPresent(
                 locator,
@@ -99,7 +160,7 @@ public class MainPageObject {
                     release().
                     perform();
         } else {
-            System.out.println("Method swipeUp() does nothing for platform " + Platform.getInstance().getPlatformVar());
+            logger.info("Method swipeUp() does nothing for platform {}", Platform.getInstance().getPlatformVar());
         }
     }
 
@@ -127,7 +188,7 @@ public class MainPageObject {
             JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
             JSExecutor.executeScript("window.scrollBy(0, 250)");
         } else {
-            System.out.println("Method scrollWebPageUp() does nothing for platform " + Platform.getInstance().getPlatformVar());
+            logger.info("Method scrollWebPageUp() does nothing for platform {}", Platform.getInstance().getPlatformVar());
         }
     }
 
@@ -190,7 +251,7 @@ public class MainPageObject {
             TouchAction action = new TouchAction((AppiumDriver)driver);
             action.tap(PointOption.point(point_to_click_x, point_to_click_y)).perform();
         } else {
-            System.out.println("Method clickElementToTheRightUpperCorner() does nothing for platform " + Platform.getInstance().getPlatformVar());
+            logger.info("Method clickElementToTheRightUpperCorner() does nothing for platform {}", Platform.getInstance().getPlatformVar());
         }
     }
 
@@ -222,41 +283,28 @@ public class MainPageObject {
             action.release();
             action.perform();
         } else {
-            System.out.println("Method swipeElementToLeft() does nothing for platform " + Platform.getInstance().getPlatformVar());
+            logger.info("Method swipeElementToLeft() does nothing for platform {}", Platform.getInstance().getPlatformVar());
         }
     }
 
     public int getAmountOfElement(String locator){
         By by = getLocatorByString(locator);
-        List elements = driver.findElements(by);
+        List<WebElement> elements = driver.findElements(by);
         return elements.size();
     }
     public boolean isElementPresent(String locator){
         return getAmountOfElement(locator) > 0;
     }
 
-    public void tryClickElementWithFewAttempts(String locator, String error_message, int amount_of_attempts){
-        int current_attempts = 0;
-        boolean need_more_attempts = true;
-
-        while (need_more_attempts){
-            try {
-                this.waitForElementAndClick(locator, error_message, 1);
-                need_more_attempts = false;
-            } catch (Exception e) {
-                if (current_attempts > amount_of_attempts){
-                    this.waitForElementAndClick(locator, error_message, 1);
-                }
-            }
-            ++ current_attempts;
-        }
-    }
-
     private By getLocatorByString(String locator_width_type)
     {
         String[] exploded_locator = locator_width_type.split(Pattern.quote(":"), 2);
-        String by_type = exploded_locator[0];
-        String locator = exploded_locator[1];
+        if (exploded_locator.length < 2) {
+            throw new IllegalArgumentException(
+                    "Locator must have the form 'type:value' (xpath:id:css), but was: " + locator_width_type);
+        }
+        String by_type = exploded_locator[0].trim();
+        String locator = exploded_locator[1].trim();
 
         if (by_type.equals("xpath")) {
             return By.xpath(locator);
@@ -269,50 +317,50 @@ public class MainPageObject {
         }
     }
 
-    public String takeScreenshot(String name)
+    /**
+     * Делает скриншот в {@code target/screenshots} и возвращает путь к файлу или null, если снимок не удался.
+     */
+    public static File saveScreenshot(RemoteWebDriver driver, String name)
     {
-        TakesScreenshot takesScreenshot = (TakesScreenshot) this.driver;
-        File source = takesScreenshot.getScreenshotAs(OutputType.FILE);
-        String path = System.getProperty("user.dir") + "/screenshots/" + name + "_screenshot.png";
-        try {
-            FileUtils.copyFile(source, new File(path));
-            System.out.println("The screenshot was taken:" + path);
-        } catch (Exception e){
-            System.out.println("Cannot take screenshot. Error: " + e.getMessage());
+        if (driver == null) {
+            logger.warn("Cannot take screenshot '{}': driver is not initialized", name);
+            return null;
         }
-        return path;
-     }
-
-     @Attachment
-    public static byte[] screenshot(String path) {
-        byte[] bytes = new byte[0];
-
         try {
-            bytes = Files.readAllBytes(Paths.get(path));
-        } catch (IOException e) {
-            System.out.println("Cannot get bytes from screenshot. Error: " +e.getMessage());
+            TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
+            File source = takesScreenshot.getScreenshotAs(OutputType.FILE);
+            File directory = new File(System.getProperty("user.dir"), SCREENSHOTS_DIRECTORY);
+            if (!directory.isDirectory() && !directory.mkdirs()) {
+                logger.warn("Cannot create screenshots directory {}", directory.getAbsolutePath());
+                return null;
+            }
+            File destination = new File(directory, name + "_screenshot.png");
+            FileUtils.copyFile(source, destination);
+            logger.info("The screenshot was taken: {}", destination.getAbsolutePath());
+            return destination;
+        } catch (Exception e) {
+            logger.warn("Cannot take screenshot '{}'", name, e);
+            return null;
         }
-        return bytes;
     }
 
-//    IRRELEVANT
-//    public void  assertElementNotPresent(String locator, String error_message){
-//        int amount_of_elements = getAmountOfElement(locator);
-//        if (amount_of_elements > 0){
-//            String default_message = "An element " + locator + " supposed to be not present";
-//            throw new AssertionError(default_message + " " + error_message);
-//        }
-//    }
-//    public void  assertElementPresent(String locator, String error_message){
-//        int amount_of_elements = getAmountOfElement(locator);
-//        if (amount_of_elements == 0){
-//            String default_message = "An element " + locator + " supposed to be present";
-//            throw new AssertionError(default_message + " " + error_message);
-//        }
-//    }
-//
-//    public String waitForElementAndGetAttribute(String locator, String attribute, String error_message, long timeoutInSeconds){
-//        WebElement element = waitForElementPresent(locator, error_message, timeoutInSeconds);
-//        return element.getAttribute(attribute);
-//    }
+    public String takeScreenshot(String name)
+    {
+        File screenshot = saveScreenshot(this.driver, name);
+        return screenshot == null ? null : screenshot.getAbsolutePath();
+    }
+
+    @Attachment
+    public static byte[] screenshot(String path) {
+        if (path == null || path.isEmpty()) {
+            logger.warn("Cannot attach screenshot: path is empty");
+            return new byte[0];
+        }
+        try {
+            return Files.readAllBytes(Paths.get(path));
+        } catch (IOException e) {
+            logger.warn("Cannot get bytes from screenshot '{}'", path, e);
+            return new byte[0];
+        }
+    }
 }

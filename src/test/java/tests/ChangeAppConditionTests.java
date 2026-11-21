@@ -8,6 +8,7 @@ import lib.ui.ArticlePageObject;
 import lib.ui.SearchPageObject;
 import lib.ui.factory.ArticlePageObjectFactory;
 import lib.ui.factory.SearchPageObjectFactory;
+import org.junit.Assume;
 import org.junit.Test;
 @Epic("Tests for change app conditions")
 public class ChangeAppConditionTests extends CoreTestCase
@@ -22,9 +23,7 @@ public class ChangeAppConditionTests extends CoreTestCase
     @Step("Starting test testChangeScreenOrientationOnSearchResults")
     public void testChangeScreenOrientationOnSearchResults()
     {
-        if (Platform.getInstance().isMW()){
-            return;
-        }
+        Assume.assumeFalse("Screen orientation is not checked for Mobile Web", Platform.getInstance().isMW());
         SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.initSearchInput();
         searchPageObject.typeSearchLine(search_line);
@@ -47,9 +46,7 @@ public class ChangeAppConditionTests extends CoreTestCase
     @Step("Starting test testCheckSearchArticleInBackground")
     public void testCheckSearchArticleInBackground()
     {
-        if (Platform.getInstance().isMW()){
-            return;
-        }
+        Assume.assumeFalse("Application background state is not checked for Mobile Web", Platform.getInstance().isMW());
         SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.initSearchInput();
         searchPageObject.typeSearchLine(search_line);
