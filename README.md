@@ -191,3 +191,7 @@ mvn allure:serve
 ## Курс
 
 Проект сделан как дипломная работа курса [LearnQA Java](https://www.learnqa.ru/java): настройка среды автоматизации с нуля, Android и iOS, мобильный Web, CI на Jenkins и отчётность в Allure.
+
+## Лицензия
+
+Код проекта распространяется по лицензии MIT — см. файл `LICENSE`.
