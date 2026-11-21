@@ -22,7 +22,8 @@ jobs:
       - uses: actions/setup-java@v6
         with:
           distribution: temurin
-          java-version: '8'
+          # Тот же JDK, что и в сборке: source/target 1.8 задаётся в pom.xml.
+          java-version: '17'
 
       - uses: github/codeql-action/init@v3
         with:

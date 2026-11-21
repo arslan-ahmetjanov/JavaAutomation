@@ -16,7 +16,9 @@ jobs:
       - uses: actions/setup-java@v6
         with:
           distribution: temurin
-          java-version: '8'
+          # Компиляция идёт с source/target 1.8 из pom.xml; JDK 17 нужен только
+          # как инструмент сборки и для CodeQL.
+          java-version: '17'
           cache: maven
 
       # Прогон тестов требует Appium, эмулятор и приложение, поэтому в CI
